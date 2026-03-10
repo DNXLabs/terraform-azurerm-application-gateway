@@ -74,6 +74,7 @@ locals {
   pip_zones = try(var.appgw.frontend.public_ip.zones, null)
 
   public_ip_id = try(var.appgw.frontend.public_ip_address_id, null) != null ? var.appgw.frontend.public_ip_address_id : (local.create_public_ip ? azurerm_public_ip.this["this"].id : null)
+  agw_zones = try(var.appgw.zones, null)
   waf_enabled = try(var.appgw.waf.enabled, false)
   diag_enabled = try(var.diagnostics.enabled, false) && (try(var.diagnostics.log_analytics_workspace_id, null) != null || try(var.diagnostics.storage_account_id, null) != null || try(var.diagnostics.eventhub_authorization_rule_id, null) != null)
 }

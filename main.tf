@@ -104,6 +104,7 @@ resource "azurerm_application_gateway" "this" {
   name                = local.agw_name
   location            = local.rg_loc
   resource_group_name = local.rg_name
+  zones               = local.agw_zones
 
   sku {
     name = var.appgw.sku_name
