@@ -82,6 +82,7 @@ variable "appgw" {
       identity_ids = list(string)
     }))
 
+    zones = optional(list(string))
     names = optional(object({
       gateway_ip_configuration  = optional(string)
       frontend_ip_configuration = optional(string)
