@@ -11,8 +11,8 @@ locals {
   rg_name = var.resource_group.create ? azurerm_resource_group.this["this"].name : data.azurerm_resource_group.existing[0].name
   rg_loc  = var.resource_group.create ? azurerm_resource_group.this["this"].location : (try(var.resource_group.location, null) != null ? var.resource_group.location : data.azurerm_resource_group.existing[0].location)
 
-  agw_name_raw = "agw-${local.prefix}-${try(var.appgw.name_suffix, "001")}"
-  agw_name     = coalesce(try(var.appgw.name, null), local.agw_name_raw)
+  # Resource names: use var.name directly as the full name
+  agw_name = var.name
 
   sku_name_l = lower(var.appgw.sku_name)
 
@@ -68,9 +68,7 @@ locals {
     try(var.appgw.frontend.public_ip_address_id, null) == null ? true : false
   )
 
-  pip_name = coalesce(
-    "pip-agw-${local.prefix}-${try(var.appgw.name_suffix, "001")}"
-  )
+  pip_name = "pip-${local.agw_name}"
 
   pip_sku   = coalesce(try(var.appgw.frontend.public_ip.sku, null), "Standard")
   pip_zones = try(var.appgw.frontend.public_ip.zones, null)

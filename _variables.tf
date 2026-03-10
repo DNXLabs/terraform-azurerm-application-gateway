@@ -38,7 +38,6 @@ variable "enforce_public_frontend_for_standard_v2" {
 variable "appgw" {
   description = "Application Gateway config (supports all provider sku_name values)."
   type = object({
-    name_suffix = optional(string, "001")
     name        = optional(string)
 
     # sku_name must be one of the provider-allowed values:
